@@ -9,16 +9,32 @@ namespace Stack
         {
             Stack<char> stack = new Stack<char>();
 
-            string test = "[]{)}(";
+            string test = "())))(((";
 
             foreach(char c in test){
                 stack.Push(c);
             }
 
             int i = 0;
+            int l = 0;
+            int p = 0;
+
             while (stack.Count != 0){
                 
+                
                 char k = stack.Pop();
+                if (stack.Count == 0){
+                    if(k == ')'){
+                        p = p + 100;
+                    }
+                    else if(k == ']'){
+                        p = p + 100;
+                    }
+                    else if(k == '}'){
+                        p = p + 100;
+                    }
+                }
+
                 if (k == '('){
                     i++;
                 }
@@ -26,20 +42,20 @@ namespace Stack
                     i--;
                 }
                 else if (k == '{'){
-                    i++;
+                    l++;
                 }
                 else if (k == '}'){
-                    i--;
+                    l--;
                 }
                 else if (k == '['){
-                    i++;
+                    p++;
                 }
                 else if (k == ']'){
-                    i--;
+                    p--;
                 }
             }
 
-            if (i == 0){
+            if (i == 0 && l == 0 && p == 0){
                 Console.WriteLine("Balanserad");
             }
             else{
